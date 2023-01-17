@@ -1,0 +1,170 @@
+{
+    "bicarbonate" : {
+        "graph_link" : "https://www.desmos.com/calculator/wfnb6rv6ba",
+        "low" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 4,
+                "b" : 1,
+                "c" : 15
+            }
+        },
+        "medium" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 1.8,
+                "b" : 1,
+                "c" : 24
+            }
+        },
+        "high" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 3,
+                "b" : 2,
+                "c" : 28
+            }
+        }
+    },
+    "graph_link" : "https://www.desmos.com/calculator/1hlfccb5bb",
+    "heart_rate" : {
+        "bradycardia" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 15,
+                "b" : 1,
+                "c" : 30
+            }
+        },
+        "normal" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 9,
+                "b" : 3,
+                "c" : 80
+            }
+        },
+        "tachycardia" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 4,
+                "b" : 3,
+                "c" : 100
+            }
+        }
+    },
+    "creatinine" : {
+        "low" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 0.5,
+                "b" : 2,
+                "c" : 0.7
+            }
+        },
+        "medium" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 0.35,
+                "b" : 2,
+                "c" : 1.23
+            }
+        },
+        "high" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 0.5,
+                "b" : 2,
+                "c" : 2
+            }
+        }
+    },
+    "hemoglobin" : {
+        "low" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 6.25,
+                "b" : 2,
+                "c" : 11.25
+            }
+        },
+        "medium" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 3.25,
+                "b" : 2,
+                "c" : 14.5
+            }
+        },
+        "high" :  {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 2,
+                "b" : 2,
+                "c" : 18.75
+            }
+        }
+    },
+    "gcs" : {
+        "severe" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 3.75,
+                "b" : 2,
+                "c" : 4.17
+            }
+        },
+        "moderate" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 2,
+                "b" : 2,
+                "c" : 8.33
+            }
+        },
+        "high" :  {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 4,
+                "b" : 2,
+                "c" : 13
+            }
+        }
+    },
+    "bp_systolic" : {
+        "normal" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 50,
+                "b" : 2,
+                "c" : 40
+            }
+        },
+        "high" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 50,
+                "b" : 2,
+                "c" : 120
+            }
+        }
+    },
+    "wbc" : {
+        "normal" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 3.75,
+                "b" : 2,
+                "c" : 5
+            }
+        },
+        "high" : {
+            "membership_function" : "BellShapedMembershipFunction",
+            "params" : {
+                "a" : 4,
+                "b" : 2,
+                "c" : 11.33
+            }
+        }
+    }
+}

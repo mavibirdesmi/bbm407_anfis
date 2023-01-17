@@ -1,0 +1,31 @@
+bicarbonate_low AND heart_rate_tachycardia AND creatinine_high AND gcs_moderate AND hemoglobin_low -> SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia AND creatinine_high AND gcs_moderate -> NO SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia AND creatinine_high AND wbc_high -> SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia AND creatinine_high -> SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia AND bp_systolic_high AND gcs_severe -> NO SEPSIS -> SKIP
+bicarbonate_low AND heart_rate_tachycardia AND bp_systolic_high -> SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia AND creatinine_medium -> SEPSIS -> NO
+bicarbonate_low AND heart_rate_tachycardia -> SEPSIS -> NO
+bicarbonate_low AND wbc_normal AND creatinine_low AND bp_systolic_high -> NO SEPSIS -> NO
+bicarbonate_low AND wbc_normal AND creatinine_low -> NO SEPSIS -> NO
+bicarbonate_low AND wbc_normal AND heart_rate_normal -> SEPSIS -> SKIP
+bicarbonate_low AND wbc_normal -> NO SEPSIS -> NO
+bicarbonate_low AND wbc_high AND gcs_normal -> SEPSIS -> SKIP
+bicarbonate_low AND wbc_high -> SEPSIS -> NO
+bicarbonate_low AND creatinine_medium -> SEPSIS -> NO
+bicarbonate_low -> SEPSIS -> NO
+heart_rate_tachycardia AND wbc_normal AND gcs_moderate AND creatinine_high -> SEPSIS -> NO
+heart_rate_tachycardia AND wbc_normal AND gcs_moderate -> NO SEPSIS -> NO
+heart_rate_tachycardia AND wbc_normal AND creatinine_medium -> SEPSIS -> NO
+heart_rate_tachycardia AND wbc_normal -> NO SEPSIS -> SKIP
+heart_rate_tachycardia AND wbc_high AND hemoglobin_medium -> NO SEPSIS -> NO
+heart_rate_tachycardia AND wbc_high -> SEPSIS -> SKIP
+heart_rate_tachycardia AND gcs_severe -> NO SEPSIS -> SKIP
+heart_rate_tachycardia -> SEPSIS -> NO
+gcs_normal AND bp_systolic_normal AND creatinine_high -> NO SEPSIS -> SKIP
+gcs_normal AND bp_systolic_normal -> NO SEPSIS -> NO
+gcs_normal AND wbc_normal -> NO SEPSIS -> NO
+gcs_normal -> NO SEPSIS -> SKIP
+creatinine_high AND heart_rate_bradycardia -> NO SEPSIS -> NO
+creatinine_high -> SEPSIS -> SKIP
+wbc_high -> NO SEPSIS -> SKIP
