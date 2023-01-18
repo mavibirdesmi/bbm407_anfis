@@ -11,10 +11,12 @@ class SepsisDataset (Dataset):
     ):
 
         self.X = torch.tensor(
-            dataframe.drop(['sepsis_icd'])
+            dataframe.drop(['sepsis_icd'], axis=1).to_numpy(),
+            dtype=torch.float32
         )
         self.y = torch.tensor(
-            dataframe['sepsis_icd']
+            dataframe['sepsis_icd'].to_numpy(),
+            dtype=torch.long
         )
 
     def __len__ (self):

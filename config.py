@@ -1,9 +1,13 @@
 import os
 
-DATASET_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "ebru_hoca_sepsis_dataset-2/ebru_hoca_dataset/")
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_PATH = os.path.join(PROJECT_DIR, "..", "data", "ebru_hoca_sepsis_dataset-2/ebru_hoca_dataset/")
+RULE_PATH = os.path.join(PROJECT_DIR, "rules.txt")
+MEMBERSHIP_FUNC_PATH = os.path.join(PROJECT_DIR, "membership_functions.json")
 FILE_NAME_START = 500
 FILE_NAME_OUT = 1000
 RANDOM_STATE = 42
+
 
 column_names = [
     "user_id",

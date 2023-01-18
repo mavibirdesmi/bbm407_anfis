@@ -14,7 +14,7 @@ class ANFIS (nn.Module):
     
     def __init__ (
         self,
-        membership_functions : List[Dict[str, object]],
+        membership_functions : Dict[str, object],
         rules : List[Tuple[List[str], int]],
         feature_num : int,
         class_num : int
@@ -23,29 +23,17 @@ class ANFIS (nn.Module):
 
         Args:
             membership_functions (List[Dict[str, object]]): Each of the elements
-            is a dictionary which represents different membership functions:
+            is a membership function with name:
             {
-                'class_name' : 'bicarbonate',
-                'fuzzy_name' : 'low',
-                'membership_function' : BellShapedMembership(
-                    a = 1,
-                    b = 2,
-                    c = 3,
-                    trainable = True
-                )
+                'bicarbonate_low' : partial(TrapezoidMembershipFunction, **params)
             }
             rules (List[Tuple[List, int]]): 
         """
         super(ANFIS, self).__init__()
 
-        self.membership_functions_layer = dict()
-        for membership_function in membership_functions:
-            membership_function_name = f"{membership_function['class_name']}_"+\
-                f"{membership_function['fuzzy_name']}"
-
-            self.membership_functions_layer[membership_function_name] =\
-                membership_function['membership_function']()
-
+        self.membership_functions_layer = nn.ModuleDict()
+        for mem_f_name, mem_f in membership_functions.items():
+            self.membership_functions_layer[mem_f_name] = mem_f()
 
         self.rules = rules
         self.n_feature = feature_num
@@ -55,7 +43,7 @@ class ANFIS (nn.Module):
         for _, rule_class in rules:
             self.rule_per_class[rule_class] += 1
 
-        self.premise_parameters = []
+        self.premise_parameters = nn.ParameterList()
         for class_idx in range(self.n_class):
             self.premise_parameters.append(
                 nn.parameter.Parameter(
@@ -71,24 +59,19 @@ class ANFIS (nn.Module):
     def forward (self, X : torch.Tensor):
         
         # for each membership function calculate membership value
-        print("Calculating membership values...")
         membership_values = dict()
         for mem_function_name, mem_function in self.membership_functions_layer.items():
             membership_values[mem_function_name] = mem_function(X)
-            print(f"{mem_function_name} shape : {membership_values[mem_function_name].shape}")
-            print(membership_values[mem_function_name])
 
         # calculate weights for each rule and group them by class
         rule_weights = [[] for _ in range(self.n_class)]
         for rule_parameters, rule_out in self.rules:
             tensor2mul = membership_values[rule_parameters[0]]
             for parameter_idx in range(1, len(rule_parameters)):
-                torch.multiply(
+                tensor2mul = torch.multiply(
                     tensor2mul,
                     membership_values[rule_parameters[parameter_idx]],
-                    out=tensor2mul
                 )
-            print(tensor2mul)
             rule_weights[rule_out].append(tensor2mul)
 
         # concatanate each rule weight and get the ratios
@@ -100,8 +83,6 @@ class ANFIS (nn.Module):
             rule_weight = rule_weight / (torch.sum(rule_weight, dim=1, keepdim=True) + eps)
             # shape of rule weights are (N, rule)
             rule_weights[class_idx] = rule_weight
-            print("rule_weight")
-            print(rule_weight)
         
         class_predictions = []
         for class_idx in range(self.n_class):
@@ -109,14 +90,12 @@ class ANFIS (nn.Module):
                 X,
                 self.premise_parameters[class_idx]
             )
-            torch.multiply(consequence_val, rule_weights[class_idx], out=consequence_val)
+            consequence_val = torch.multiply(consequence_val, rule_weights[class_idx])
             pred = torch.sum(consequence_val, dim=1, keepdim=True)
 
             class_predictions.append(pred)
         
         pred = torch.cat(class_predictions, dim=1)
-
-        pred = F.softmax(pred, dim=1)
 
         return pred
 
@@ -138,20 +117,11 @@ if __name__ == "__main__":
         feature_idx=1
     )
 
-    model = ANFIS(
-        membership_functions=[
-            {
-                'class_name' : 'bicarbonate',
-                'fuzzy_name' : 'low',
-                'membership_function' : mem1
-            },
-            {
-                'class_name' : 'heart_rate',
-                'fuzzy_name' : 'tachycardia',
-                'membership_function' : mem2
-            }
-
-        ],
+    model = ANFIS (
+        membership_functions = {
+            "bicarbonate_low" : mem1,
+            "heart_rate_tachycardia" : mem2
+        },
         rules=[
             (
                 ['bicarbonate_low', 'heart_rate_tachycardia'],

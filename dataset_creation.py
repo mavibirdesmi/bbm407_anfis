@@ -64,7 +64,8 @@ def prepare_data (
         "hemoglobin",
         "gcs",
         "bp_systolic",
-        "wbc"
+        "wbc",
+        "sepsis_icd"
     ]]
 
     return dataframe
